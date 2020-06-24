@@ -297,6 +297,8 @@ configuration DomainController
             SetScript  = {
 				# Install AAD Tools
 					md c:\temp -ErrorAction Ignore
+
+                    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 					Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 
 					#Install-Module -Name Azure -AllowClobber -Force
