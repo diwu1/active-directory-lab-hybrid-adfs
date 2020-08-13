@@ -30,6 +30,7 @@ if (-not $elevated) {
     Write-host "Not elevated, restarting as admin..."
     Start-Process cmd.exe -Credential $DomainCreds -NoNewWindow -ArgumentList “/c powershell.exe $arglist”
 } else {
+	[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
     Write-Host "Elevated, continuing..." -Verbose
 
     #Configure ADFS Farm
@@ -67,8 +68,7 @@ if (-not $elevated) {
  
 	# Install AAD Tools
 	md c:\temp -ErrorAction Ignore
-	[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-	Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+	Install-PackageProvider -Name NuGet -MinimumVersion 2.8.6 -Force
 
 	#Install-Module -Name Azure -AllowClobber -Force
 	#Install-Module -Name AzureRM -AllowClobber -Force
